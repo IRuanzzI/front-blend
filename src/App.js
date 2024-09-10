@@ -3,7 +3,7 @@ import { GlobalStyle } from "./global"; // ou o caminho correto para o seu arqui
 import { LogoImage, ContentContainer } from "./componentes/Container/style";
 import BeverageList from "./componentes/Lista/index.js";
 import LogoSrc from "./componentes/LogoSrc.jpg"; // Certifique-se de que o caminho está correto
-
+import Footer from "./componentes/footer/index.js";
 function App() {
   return (
     <>
@@ -16,6 +16,7 @@ function App() {
           <BeverageList />
         </div>
       </ContentContainer>
+      <Footer/>
     </>
   );
 }

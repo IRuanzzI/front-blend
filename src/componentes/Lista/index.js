@@ -32,14 +32,13 @@ const BeverageList = () => {
             const response = await axios.get('http://localhost:8080/bebidas/findAll');
             setBeverages(response.data);
 
-            // Initialize quantities and availability
             const initialQuantities = {};
             const initialAvailable = {};
             const initialMode = {};
             response.data.forEach(beverage => {
-                initialQuantities[beverage.name] = 0; // Default to 0
+                initialQuantities[beverage.name] = 0; 
                 initialAvailable[beverage.name] = beverage.quantity > 0;
-                initialMode[beverage.name] = false; // Default to false (modo de adicionar)
+                initialMode[beverage.name] = false; 
             });
             setQuantities(initialQuantities);
             setAvailable(initialAvailable);
@@ -57,13 +56,13 @@ const BeverageList = () => {
             // Verifica se a quantidade que o usuário deseja vender é maior do que a disponível
             if (quantityToSell > beverage.quantity) {
                 alert(`Você não pode vender mais do que o disponível. Quantidade disponível: ${beverage.quantity}`);
-                return; // Cancela a operação se a quantidade de saída for maior que a disponível
+                return; 
             }
 
             if (quantityToSell > 0) {
                 try {
                     await axios.post('http://localhost:8080/bebidas/sell', { id: beverage.id, quantity: quantityToSell });
-                    fetchBeverages(); // Recarrega a lista de bebidas após a venda
+                    fetchBeverages(); 
                 } catch (error) {
                     console.error('Error selling beverage:', error);
                 }
@@ -79,7 +78,7 @@ const BeverageList = () => {
             if (beverage) {
                 try {
                     await axios.post('http://localhost:8080/bebidas/addQuantity', { id: beverage.id, quantity });
-                    fetchBeverages(); // Recarrega a lista de bebidas após a adição
+                    fetchBeverages();
                 } catch (error) {
                     console.error('Error adding quantity:', error);
                 }
@@ -118,9 +117,9 @@ const BeverageList = () => {
             });
             setNewBeverage({ name: '', quantity: '' });
             setShowForm(false);
-            fetchBeverages(); // Recarrega a lista de bebidas após a adição
+            fetchBeverages();
         } catch (error) {
-            console.error('Error adding beverage:', error);
+            alert('Bebida já existente', error);
         }
     };
 
@@ -161,7 +160,7 @@ const BeverageList = () => {
             {beverages.map(beverage => (
                 <ContainerItem
                     key={beverage.id}
-                    disabled={!available[beverage.name]} // Apply gray background if not available
+                    disabled={!available[beverage.name]} 
                 >
                     <div style={{ flex: '1', overflow: 'hidden' }}>
                         <span style={{ marginRight: '8px' }}>
@@ -205,7 +204,7 @@ const BeverageList = () => {
                                 handleSell(beverage.name);
                             }
                         }}
-                        disabled={isButtonDisabled(beverage.name)} // Disable based on availability and quantity check
+                        disabled={isButtonDisabled(beverage.name)} 
                     >
                         {mode[beverage.name] ? 'Adicionar' : 'Saída'}
                     </BotaoSaida>
