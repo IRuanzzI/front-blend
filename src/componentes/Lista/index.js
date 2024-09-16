@@ -22,14 +22,14 @@ const BeverageList = () => {
     const [showForm, setShowForm] = useState(false);
     const [newBeverage, setNewBeverage] = useState({ name: '', quantity: '' });
     const [mode, setMode] = useState({});
-
+    const url = "https://bebidas-api.onrender.com/bebidas/"
     useEffect(() => {
         fetchBeverages();
     }, []);
 
     const fetchBeverages = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/bebidas/findAll');
+            const response = await axios.get(`${url}findAll`);
             setBeverages(response.data);
 
             const initialQuantities = {};
@@ -61,7 +61,7 @@ const BeverageList = () => {
 
             if (quantityToSell > 0) {
                 try {
-                    await axios.post('http://localhost:8080/bebidas/sell', { id: beverage.id, quantity: quantityToSell });
+                    await axios.post(`${url}sell`, { id: beverage.id, quantity: quantityToSell });
                     fetchBeverages(); 
                 } catch (error) {
                     console.error('Error selling beverage:', error);
@@ -77,7 +77,7 @@ const BeverageList = () => {
             const beverage = beverages.find(b => b.name === name);
             if (beverage) {
                 try {
-                    await axios.post('http://localhost:8080/bebidas/addQuantity', { id: beverage.id, quantity });
+                    await axios.post(`${url}addQuantity`, { id: beverage.id, quantity });
                     fetchBeverages();
                 } catch (error) {
                     console.error('Error adding quantity:', error);
@@ -102,7 +102,7 @@ const BeverageList = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:8080/bebidas/${id}`);
+            await axios.delete(`${url}${id}`);
             setBeverages(beverages.filter(beverage => beverage.id !== id));
         } catch (error) {
             console.error('Error deleting beverage:', error);
@@ -111,7 +111,7 @@ const BeverageList = () => {
 
     const handleAddBeverage = async () => {
         try {
-            await axios.post('http://localhost:8080/bebidas/create', {
+            await axios.post(`${url}create`, {
                 name: newBeverage.name,
                 quantity: parseInt(newBeverage.quantity, 10)
             });
