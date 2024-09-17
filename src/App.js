@@ -1,8 +1,8 @@
 import React from "react";
-import { GlobalStyle } from "./global"; // ou o caminho correto para o seu arquivo de estilo
+import { GlobalStyle } from "./global";
 import { LogoImage, ContentContainer } from "./componentes/Container/style";
 import BeverageList from "./componentes/Lista/index.js";
-import LogoSrc from "./componentes/LogoSrc.jpg"; // Certifique-se de que o caminho está correto
+import LogoSrc from "./componentes/LogoSrc.jpg"; 
 import Footer from "./componentes/footer/index.js";
 function App() {
   return (
